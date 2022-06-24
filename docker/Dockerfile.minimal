@@ -1,0 +1,20 @@
+FROM python:3.10.5-slim-bullseye
+
+ENV POETRY_HOME=/opt/poetry
+ENV POETRY_VIRTUALENVS_CREATE=false
+ENV PATH="$POETRY_HOME/bin:$PATH"
+
+# Install Poetry
+RUN apt-get update && apt-get install -y curl
+RUN curl -sSL https://install.python-poetry.org | python -
+
+# Install Python runtime dependencies
+WORKDIR /app
+COPY pyproject.toml poetry.lock ./
+RUN poetry install --no-root --no-dev
+
+# Install application
+COPY src/ src/
+RUN poetry install --no-dev
+
+ENTRYPOINT ["mycli"]
