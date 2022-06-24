@@ -11,9 +11,9 @@ This guide is a handy step-by-step reference for setting up your project when yo
 
 Before you get started, it is important to note that Poetry does not only help manage your dependencies, it also manages virtual environments for your projects. It works perfectly in conjunction with [pyenv](https://github.com/pyenv/pyenv), which manages your base Python version. The subsection below will explain how to set this up.
 
-**If you have conda installed on your system, the steps below will likely NOT work!** Please skip to the "conda" subsection for instructions on using poetry in conjunction with conda. For the rest of the guide, I will assume you are using the pyenv/poetry setup.
+**If you have conda installed on your system, the steps below will likely NOT work!** Please skip to the [conda](#conda-and-poetry) subsection for instructions on using Poetry in conjunction with conda. For the rest of the guide, I will assume you are using the pyenv/poetry setup.
 
-### pyenv and poetry
+### pyenv and Poetry
 
 pyenv is a great tool for managing different base Python versions. This comes in handy when you need different versions for different projects. For example, one project might run on Databricks, and you'll want to emulate the Databricks runtime using Python 3.8.10. On another project, you might want to use the latest Python version. pyenv helps you do this.
 
@@ -29,13 +29,13 @@ Once pyenv is installed, install the Python version of your choice. You may have
 pyenv install 3.10.5
 ```
 
-Now we are ready to install poetry! First, make sure your system Python is selected. This makes sure poetry remains available even if you decide to remove a specific version of Python.
+Now we are ready to install Poetry! First, make sure your system Python is selected. This makes sure Poetry remains available even if you decide to remove a specific version of Python.
 
 ```bash
 pyenv global system
 ```
 
-Then, [install poetry](https://python-poetry.org/docs/master/#installation):
+Then, [install Poetry](https://python-poetry.org/docs/master/#installation):
 
 ```bash
 curl -sSL https://install.python-poetry.org | python -
@@ -43,10 +43,9 @@ curl -sSL https://install.python-poetry.org | python -
 
 That's it! You should be ready to get started setting up your project.
 
+### conda and Poetry
 
-### conda and poetry
-
-If you prefer use conda for managing your virtual environments, that is perfectly fine. Start by activating your base conda environment, then install poetry:
+If you prefer use conda for managing your virtual environments, that is perfectly fine. Start by activating your base conda environment, then install Poetry:
 
 ```bash
 curl -sSL https://install.python-poetry.org | python -
@@ -86,7 +85,6 @@ poetry init
 ```
 
 This will generate a `pyproject.toml` file in your directory (or append to the file if it already exist). This file is where Poetry collects all information about your package.
-
 
 ### 4. Specify your package
 
@@ -151,22 +149,50 @@ That's it! You have your package and matching virtual environment all set up.
 
 ## Project management
 
-Updating dependencies
+Here's some situations you may run into while developing or maintaining your application, and how Poetry can help.
 
-...
+### "I want to do a routine update of my dependencies"
+
+Poetry provides an `update` command that updates all your dependencies to the newest, non-breaking versions. It uses semantic versioning to determine which versions are safe to upgrade to.
+
+```bash
+poetry update
+```
+
+### "I want to update a package to a new major version"
+
+New major versions contain updates that are possibly not backwards compatible. If you want to upgrade, use the `@latest` tag like so:
+
+```bash
+poetry add pandas@latest
+```
+
+### "There is a security issue with one of my dependencies"
+
+GitHub's dependabot supports Poetry, and you can configure it to automatically open pull requests for updating your `poetry.lock` / `pyproject.toml`. Super simple!
+
+Running `poetry update` manually should also take care of this issue, but this will update multiple dependencies.
+
+### "I want to update my local environment after my teammate added a new dependency."
+
+Make sure your local directory contains the latest lockfile, and simply run:
+
+```bash
+poetry install
+```
 
 
 ## Using Poetry with Docker
 
 Applications should be distributed as container images. There are two ways you can use Poetry to make sure your application is available in the container and installed with fully locked down dependencies:
-* Use Poetry in your container
-* Prepare a requirements.txt beforehand and use `pip` to install these dependencies and then your package in your container
+* Use Poetry in your container to install your dependencies and then your package.
+* Prepare a `requirements.txt` beforehand and use `pip` to install these dependencies and then your package in your container.
 
 The `docker/` folder contains examples of both approaches.
 
 ### Using Poetry in your container
 
-My preferred way is to install poetry in the container and use it to install your package. I'd argue it is simpler and more intuitive. I included two example Dockerfiles with this approach:
+My preferred way is to install Poetry in the container and use it to install your package. I'd argue it is simpler and more intuitive. I included two example Dockerfiles with this approach:
 * A minimal example that includes the bare necessities, to showcase the concepts.
 * An optimized example that includes some improvements on layer caching and security. You should be able to use this Dockerfile for your own project with minimal adjustments.
 
@@ -177,9 +203,9 @@ docker build -t mypackage:optimized -f docker/Dockerfile.optimized .
 docker run --rm mypackage:optimized
 ```
 
-### Container without poetry
+### Container without Poetry
 
-If you do not want to install poetry in your Docker container, you can avoid this by exporting a `requirements.txt` beforehand. The Poetry CLI supports this. Export a requirements file by running:
+If you do not want to install poetry in your Docker container, you can avoid this by exporting a `requirements.txt` beforehand. The Poetry CLI supports this:
 
 ```bash
 poetry export > requirements.txt
@@ -192,9 +218,12 @@ docker build -t mypackage:nopoetry -f docker/Dockerfile.nopoetry .
 docker run --rm mypackage:nopoetry
 ```
 
+
 ## Using Poetry with GitHub Actions
 
 You may want to utilize Poetry to set up a testing environment on your GitHub runner. There is GitHub Action available for installing Poetry on your runner: [snok/install-poetry](https://github.com/snok/install-poetry). The GitHub page includes a sample test workflow. I have also included that same workflow in this repository for reference.
+
+A more ideal setup would be to run your tests in a Docker container. You can add a second stage to your Dockerfile to install the development dependencies and then use this image to run your tests. I will add an example workflow for this once I have tested this approach fully.
 
 
 ## Using Poetry with Databricks
@@ -206,6 +235,17 @@ You can set up the Docker container similarly to the Dockerfiles in this reposit
 
 ## F.A.Q.
 
-To be added. Feel free to ask a question as a GitHub issue, and I might add it here.
+Feel free to ask a question as a GitHub issue, and I might add it here.
 
-"What if my teammates really don't want to use Poetry?"
+### What if my teammates really don't want to use Poetry?
+
+Transitioning from a `setup.py` setup to a `pyproject.toml` setup can be quite seamless. Poetry and `pyproject.toml` support all the functionality of `setup.py`. For example, `pip install -e .` still works.
+
+The only caveat is that `pip` does not recognize Poetry's special development dependencies. If you want to `pip install -e .[dev]`, you will have to specify your development dependencies as [extras](https://python-poetry.org/docs/pyproject/#extras):
+
+```toml
+[tool.poetry.extras]
+dev = ["pytest"]
+```
+
+And as showcased, your Dockerfile can remain Poetry-free. So full backward compatibility is guaranteed. So your less tech-savvy teammates can stick to their old ways, while you move the project into the future!
