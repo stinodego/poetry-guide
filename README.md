@@ -29,7 +29,7 @@ Once pyenv is installed, install the Python version of your choice. You may have
 pyenv install 3.10.5
 ```
 
-Now we are ready to install Poetry! First, make sure your system Python is selected. This makes sure Poetry remains available even if you decide to remove a specific version of Python.
+Now you are ready to install Poetry! First, make sure your system Python is selected. This makes sure Poetry remains available even if you decide to remove a specific version of Python.
 
 ```bash
 pyenv global system
@@ -236,6 +236,14 @@ You can set up the Docker container similarly to the Dockerfiles in this reposit
 ## F.A.Q.
 
 Feel free to ask a question as a GitHub issue, and I might add it here.
+
+### Can I distribute my project as a wheel?
+
+Yes! The Poetry CLI has a `build` command that allows you to build a wheel. Note that it will not use your locked dependencies. Rather, the 'open' dependencies specified in the `pyproject.toml` will be used.
+
+```bash
+poetry build --format wheel
+```
 
 ### What if my teammates really don't want to use Poetry?
 
