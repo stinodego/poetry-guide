@@ -3,6 +3,3 @@ def main() -> None:
     print("Locked dependencies")
     print('Production environment')
     print('Sleep sound and carefree')
-
-if __name__ == "__main__":
-    main()

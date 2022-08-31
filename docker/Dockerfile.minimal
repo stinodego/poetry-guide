@@ -11,10 +11,10 @@ RUN curl -sSL https://install.python-poetry.org | python -
 # Install Python runtime dependencies
 WORKDIR /app
 COPY pyproject.toml poetry.lock ./
-RUN poetry install --no-root --no-dev
+RUN poetry install --no-root --only main
 
 # Install application
 COPY src/ src/
-RUN poetry install --no-dev
+RUN poetry install --only main
 
 ENTRYPOINT ["mycli"]

@@ -99,7 +99,17 @@ packages = [
 
 If your package lives on the top-level, you can skip this step.
 
-### 5. Add your dependencies
+### 5. Create your virtual environment
+
+We have to tell Poetry to use the Python version we enabled in step #3:
+
+```bash
+poetry env use $(pyenv which python)
+```
+
+This creates a virtual environment. You can find the location of the environment by typing `poetry env info`. It's a good idea to tell your IDE to use this environment; both VSCode and Pycharm have built-in support for Poetry environments.
+
+### 6. Add your dependencies
 
 Let's add some dependencies. **Do not add these manually to the `pyproject.toml` file!** Instead, use Poetry's CLI:
 
@@ -107,28 +117,26 @@ Let's add some dependencies. **Do not add these manually to the `pyproject.toml`
 poetry add pandas
 ```
 
-At this point, two things will happen:
-1. The `poetry.lock` file is created. This file tracks the fully resolved and locked dependencies for your project. It is updated anytime you add, remove, or update a dependency using the Poetry CLI.
-2. A virtual environment is created. You can find the location of the environment by typing `poetry env info`. It's a good idea to tell your IDE to use this environment; both VSCode and Pycharm have built-in support for Poetry environments.
+At this point, the `poetry.lock` file will be created. This file tracks the fully resolved and locked dependencies for your project. It is updated anytime you add, remove, or update a dependency using the Poetry CLI.
 
-Let's also add a development dependency:
+Let's also add a testing dependency in a separate [dependency group](https://python-poetry.org/docs/master/managing-dependencies/):
 
 ```bash
-poetry add --dev pytest
+poetry add pytest --group test
 ```
 
-Development dependencies have a special status. You can easily choose to omit them when installing your project in a Docker container, for example.
+Dependency groups have a special status. You can easily choose to omit them when installing your project in a Docker container, for example.
 
-### 6. Add a CLI script
+### 7. Add a CLI script
 
 You can make your application available through a CLI script by adding a section to the `pyproject.toml` file and pointing to a function in your package. Not required by any means, but I'd say it's a good way to set up your application.
 
 ```toml
 [tool.poetry.scripts]
-mycli = 'mypackage.__main__:main'
+mycli = 'mypackage.main:main'
 ```
 
-### 7. Install your package
+### 8. Install your package
 
 Our virtual environment contains the package dependencies, but not yet our own package. Time to install it:
 
@@ -136,7 +144,7 @@ Our virtual environment contains the package dependencies, but not yet our own p
 poetry install
 ```
 
-### 8. Activate your virtual environment
+### 9. Activate your virtual environment
 
 If your IDE hasn't yet taken care of this, you can activate your virtual environment using the Poetry CLI:
 
@@ -178,7 +186,7 @@ Running `poetry update` manually should also take care of this issue, but this w
 Make sure your local directory contains the latest lockfile, and simply run:
 
 ```bash
-poetry install
+poetry install --sync
 ```
 
 

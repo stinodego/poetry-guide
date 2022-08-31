@@ -13,12 +13,12 @@ packages = [
 python = "^3.8"
 pandas = "^1.4.3"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.test.dependencies]
 pytest = "^7.1.2"
 
 [tool.poetry.scripts]
-mycli = 'mypackage.__main__:main'
+mycli = 'mypackage.main:main'
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
