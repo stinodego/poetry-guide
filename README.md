@@ -101,7 +101,7 @@ If your package lives on the top-level, you can skip this step.
 
 ### 5. Create your virtual environment
 
-We have to tell Poetry to use the Python version we enabled in step #3:
+We have to tell Poetry to use the Python version we enabled in [step 2](#2-set-your-base-python-version):
 
 ```bash
 poetry env use $(pyenv which python)
