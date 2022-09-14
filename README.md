@@ -17,7 +17,7 @@ Before you get started, it is important to note that Poetry does not only help m
 
 pyenv is a great tool for managing different base Python versions. This comes in handy when you need different versions for different projects. For example, one project might run on Databricks, and you'll want to emulate the Databricks runtime using Python 3.8.10. On another project, you might want to use the latest Python version. pyenv helps you do this.
 
-Start by installing pyenv. For MacOs, I recommend [using Homebrew](https://github.com/pyenv/pyenv#homebrew-in-macos). For Linux, I recommend [using the installer](https://github.com/pyenv/pyenv-installer#install):
+Start by installing pyenv. For macOS, I recommend [using Homebrew](https://github.com/pyenv/pyenv#homebrew-in-macos). For Linux, I recommend [using the installer](https://github.com/pyenv/pyenv-installer#install):
 
 ```bash
 curl https://pyenv.run | bash
@@ -48,7 +48,7 @@ That's it! You should be ready to get started setting up your project.
 If you prefer use conda for managing your virtual environments, that is perfectly fine. Start by activating your base conda environment, then install Poetry:
 
 ```bash
-curl -sSL https://install.python-poetry.org | python -
+curl -sSL https://install.python-poetry.org | python3 -
 ```
 
 When creating starting a new project, create a new conda environment with your desired base Python version. Activate the environment, and install poetry using pip:
