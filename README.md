@@ -45,13 +45,7 @@ That's it! You should be ready to get started setting up your project.
 
 ### conda and Poetry
 
-If you prefer use conda for managing your virtual environments, that is perfectly fine. Start by activating your base conda environment, then install Poetry:
-
-```bash
-curl -sSL https://install.python-poetry.org | python3 -
-```
-
-When creating starting a new project, create a new conda environment with your desired base Python version. Activate the environment, and install poetry using pip:
+If you prefer use conda for managing your virtual environments, that is perfectly fine. When starting a new project, create a new conda environment with your desired base Python version. Activate the environment, and install poetry using pip:
 
 ```bash
 pip install poetry
