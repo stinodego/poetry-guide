@@ -38,7 +38,7 @@ pyenv global system
 Then, [install Poetry](https://python-poetry.org/docs/master/#installation):
 
 ```bash
-curl -sSL https://install.python-poetry.org | python -
+curl -sSL https://install.python-poetry.org | python3 -
 ```
 
 That's it! You should be ready to get started setting up your project.
