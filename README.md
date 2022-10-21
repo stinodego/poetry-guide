@@ -6,6 +6,14 @@ Poetry is an amazing, modern tool for developing Python packages. It helps you f
 
 This guide is a handy step-by-step reference for setting up your project when you're first getting acquainted with Poetry. It is NOT meant to be a comprehensive usage guide. Please refer to the [excellent documentation](https://python-poetry.org/docs/) for this.
 
+## Table of contents
+- [Installation](#installation)
+- [Project setup](#project-setup)
+- [Project management](#project-management)
+- [Using Poetry with Docker](#using-poetry-with-docker)
+- [Using Poetry with GitHub Actions](#using-poetry-with-github-actions)
+- [Using Poetry with Databricks](#using-poetry-with-databricks)
+- [F.A.Q.](#faq)
 
 ## Installation
 
