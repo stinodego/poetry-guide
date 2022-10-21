@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y curl \
  && rm -rf /var/lib/apt/lists/*
 
 # Install Python runtime dependencies
-# (Some packages require compilers to be installed - in this case you don't actually need build-essential)
+# (Some packages require compilers to be installed - this package doesn't actually need build-essential)
 WORKDIR /app
 COPY pyproject.toml poetry.lock ./
 RUN apt-get update && apt-get install --no-install-recommends -y build-essential  \
