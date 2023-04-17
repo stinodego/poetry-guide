@@ -51,6 +51,12 @@ curl -sSL https://install.python-poetry.org | python3 -
 
 That's it! You should be ready to get started setting up your project.
 
+Before you do, I recommend configuring Poetry to create its virtual environments [in your project directory](https://python-poetry.org/docs/configuration/#virtualenvsin-project). This step is completely optional.
+
+```bash
+poetry config virtualenvs.in-project true
+```
+
 ### conda and Poetry
 
 If you prefer use conda for managing your virtual environments, that is perfectly fine. When starting a new project, create a new conda environment with your desired base Python version. Activate the environment, and install poetry using pip:
