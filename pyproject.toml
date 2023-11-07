@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "mypackage"
 version = "0.1.0"
-description = "Guide on how to use poetry for your projects."
-authors = ["Stijn de Gooijer <stijn@degooijer.io>"]
+description = "Guide on how to use Poetry for your projects."
+authors = ["Stijn de Gooijer <stijndegooijer@gmail.com>"]
 license = "MIT"
 packages = [
     { include = "mypackage", from = "src" }
@@ -10,10 +10,10 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
-pandas = "^1.4.3"
+polars = "^0.19.12"
 
 [tool.poetry.group.test.dependencies]
-pytest = "^7.1.2"
+pytest = "^7.4.3"
 
 [tool.poetry.scripts]
 mycli = 'mypackage.main:main'

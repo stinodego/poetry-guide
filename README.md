@@ -122,7 +122,7 @@ This creates a virtual environment. You can find the location of the environment
 Let's add some dependencies. **Do not add these manually to the `pyproject.toml` file!** Instead, use Poetry's CLI:
 
 ```bash
-poetry add pandas
+poetry add polars
 ```
 
 At this point, the `poetry.lock` file will be created. This file tracks the fully resolved and locked dependencies for your project. It is updated anytime you add, remove, or update a dependency using the Poetry CLI.
@@ -180,7 +180,7 @@ poetry update
 New major versions contain updates that are possibly not backwards compatible. If you want to upgrade, use the `@latest` tag like so:
 
 ```bash
-poetry add pandas@latest
+poetry add polars@latest
 ```
 
 ### "There is a security issue with one of my dependencies"
