@@ -3,13 +3,13 @@ name = "mypackage"
 version = "0.1.0"
 description = "Guide on how to use Poetry for your projects."
 authors = ["Stijn de Gooijer <stijndegooijer@gmail.com>"]
-license = "MIT"
+license = "Unlicense"
 packages = [
     { include = "mypackage", from = "src" }
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = ">=3.8"
 polars = "^0.19.12"
 
 [tool.poetry.group.test.dependencies]
