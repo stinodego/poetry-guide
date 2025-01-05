@@ -1,3 +1,8 @@
+> [!WARNING]
+> **THIS GUIDE IS NOT BEING MAINTAINED.**
+>
+> Feel free to use this guide for whatever purpose you'd like. I will not offer any support.
+
 # Poetry guide
 
 This repository contains some pointers and resources for setting up your own projects to use [Poetry](https://python-poetry.org/).
